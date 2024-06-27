@@ -52,6 +52,7 @@ body {
 .quote-wrapper cite {
     display: block;
     margin-bottom: 1rem;
+    font-size: medium;
 }
 
 .quote-wrapper button {
