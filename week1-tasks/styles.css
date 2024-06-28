@@ -39,6 +39,12 @@ body {
     box-shadow: 0px 2px 15px -5px rgba(0, 0, 0, 0.1);
 }
 
+.swipe {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #666;
+}
+
 .quote-wrapper h2 {
     color: var(--first-color);
     margin-bottom: 0.5rem;
