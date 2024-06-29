@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const quote = document.getElementById('quote'),
           author = document.getElementById('author'),
-          generate = document.getElementById('generate');
+          searchButton = document.getElementById('search'),
+          searchInput = document.getElementById('search-author');
 
     function randomQuote() {
         fetch('https://type.fit/api/quotes')
@@ -16,8 +17,30 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    function searchQuote() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+
+        fetch('https://type.fit/api/quotes')
+        .then(response => response.json())
+        .then(data => {
+            const filteredQuotes = data.filter(q => q.author && q.author.toLowerCase().includes(searchTerm));
+
+            if (filteredQuotes.length > 0) {
+                const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+                quote.textContent = filteredQuotes[randomIndex].text;
+                author.textContent = `-- ${filteredQuotes[randomIndex].author}`;
+            } else {
+                quote.textContent = "No quotes found for this author.";
+                author.textContent = "";
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching quotes:', error);
+        });
+    }
+
     randomQuote();
-    generate.addEventListener('click', randomQuote);
+    searchButton.addEventListener('click', searchQuote);
 
     // Add Hammer.js swipe detection
     const quoteWrapper = document.querySelector('.quote-wrapper');
